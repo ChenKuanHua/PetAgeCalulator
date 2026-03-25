@@ -3,44 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>寵物年齡換算器｜狗狗與貓咪年齡轉換</title>
+    <title>寵物年齡換算器｜互動可愛版</title>
 
-    <meta name="description" content="可愛手繪風格的寵物年齡換算工具，支援狗狗與貓咪年齡轉換成人類年齡，滿版狗狗與貓咪背景，操作簡單、互動性高，適合手機與電腦使用。">
+    <meta name="description" content="可愛互動式寵物年齡換算工具，支援狗狗與貓咪年齡轉換，滑鼠點擊會出現可愛肉球動畫與按鈕彈跳效果，適合手機與桌機使用。">
 
     <style>
-        /* ===== 基本設定 ===== */
-
         * {
             box-sizing: border-box;
             font-family: "Microsoft JhengHei", Arial, sans-serif;
         }
 
         body {
+
             margin: 0;
             padding: 0;
 
-            /* ===== 滿版背景圖 ===== */
-            background-image: url("/cat3.png");
+            background-image:
+                url("cat3.png");
+
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
 
             min-height: 100vh;
 
             display: flex;
             justify-content: center;
             align-items: center;
+
+            overflow-x: hidden;
         }
 
         h1 {
             text-align: center;
             color: #ff6b6b;
-            margin-bottom: 20px;
         }
 
-        /* ===== 半透明卡片 ===== */
+        /* 卡片 */
 
         .container {
+
             width: 95%;
             max-width: 480px;
 
@@ -48,35 +49,42 @@
 
             border-radius: 25px;
 
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
 
             backdrop-filter: blur(8px);
 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         label {
-            display: block;
-            margin-top: 15px;
             font-weight: bold;
+            margin-top: 15px;
+            display: block;
         }
 
         select,
         input {
+
             width: 100%;
+
             padding: 12px;
+
             margin-top: 8px;
 
             border-radius: 12px;
+
             border: 2px solid #ffd6d6;
 
             font-size: 16px;
         }
 
-        /* ===== 手繪風格按鈕 ===== */
+        /* ===== 可愛按鈕 ===== */
 
         button {
+
             width: 100%;
+
             padding: 16px;
 
             margin-top: 20px;
@@ -91,7 +99,8 @@
 
             color: white;
 
-            background: linear-gradient(135deg,
+            background:
+                linear-gradient(135deg,
                     #ff9a9e,
                     #fad0c4);
 
@@ -99,25 +108,28 @@
                 0 6px 0 #e57373,
                 0 10px 20px rgba(0, 0, 0, 0.2);
 
-            transition: 0.2s;
+            transition: 0.15s;
         }
 
-        /* 按壓效果（像貼紙） */
+        /* Hover */
+
+        button:hover {
+
+            transform: scale(1.05);
+        }
+
+        /* 點擊動畫 */
 
         button:active {
 
-            transform: translateY(4px);
+            transform:
+                scale(0.95) translateY(4px);
 
             box-shadow:
                 0 2px 0 #e57373;
         }
 
-        button:hover {
-
-            transform: scale(1.04);
-        }
-
-        /* ===== 結果區 ===== */
+        /* ===== 結果 ===== */
 
         .result {
 
@@ -138,36 +150,72 @@
             display: none;
         }
 
-        .note {
+        /* ===== 愛心動畫 ===== */
 
-            margin-top: 15px;
+        .heart {
 
-            font-size: 14px;
+            position: absolute;
 
-            color: #555;
+            font-size: 22px;
+
+            animation:
+                floatUp 1s ease-out forwards;
+
+            pointer-events: none;
         }
 
-        /* ===== RWD ===== */
+        @keyframes floatUp {
 
-        @media (max-width: 768px) {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-80px);
+            }
+        }
+
+        /* ===== 肉球 ===== */
+
+        .paw {
+
+            position: absolute;
+
+            font-size: 26px;
+
+            animation:
+                fadeOut 1.2s ease-out forwards;
+
+            pointer-events: none;
+        }
+
+        @keyframes fadeOut {
+
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.8);
+            }
+        }
+
+        /* RWD */
+
+        @media (max-width:768px) {
 
             .container {
-
                 padding: 22px;
             }
 
             h1 {
-
                 font-size: 24px;
             }
-        }
 
-        @media (max-width: 320px) {
-
-            button {
-
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -178,70 +226,47 @@
 
         <h1>🐾 寵物年齡換算器</h1>
 
-        <!-- 寵物種類 -->
-
-        <label for="petType">
-            請選擇寵物種類：
-        </label>
+        <label>請選擇寵物種類：</label>
 
         <select id="petType">
-
-            <option value="cat">
-                貓咪
-            </option>
-
-            <option value="dog">
-                狗狗
-            </option>
-
+            <option value="cat">貓咪</option>
+            <option value="dog">狗狗</option>
         </select>
 
-        <!-- 狗狗公式 -->
-
-        <label for="dogFormula" id="dogFormulaLabel" style="display:none;">
+        <label id="dogFormulaLabel" style="display:none;">
             狗狗換算方式：
         </label>
 
         <select id="dogFormula" style="display:none;">
 
             <option value="normal">
-                一般公式（中小型犬）
+                一般公式
             </option>
 
             <option value="science">
-                科學公式（DNA 研究）
+                科學公式
             </option>
 
         </select>
 
-        <!-- 年齡 -->
-
-        <label for="age">
-            請輸入寵物年齡（歲）：
+        <label>
+            請輸入寵物年齡：
         </label>
 
-        <input type="number" id="age" min="0" max="50" placeholder="例如：3">
+        <input type="number" id="age" placeholder="例如：3">
 
-        <!-- 計算按鈕 -->
-
-        <button onclick="calculateAge()">
-            🐾 點我幫你換算年齡
+        <button onclick="calculateAge(event)">
+            🐾 點我換算
         </button>
 
-        <!-- 結果 -->
-
         <div class="result" id="result">
-        </div>
-
-        <div class="note">
-            ※ 此為常見估算公式，實際年齡可能因品種與健康狀況不同。
         </div>
 
     </div>
 
     <script>
 
-        // 切換狗狗公式顯示
+        /* 顯示狗狗公式 */
 
         document
             .getElementById("petType")
@@ -252,41 +277,33 @@
                     let pet =
                         this.value;
 
-                    let dogFormula =
+                    let dog =
                         document.getElementById(
-                            "dogFormula"
-                        );
+                            "dogFormula");
 
-                    let dogLabel =
+                    let label =
                         document.getElementById(
-                            "dogFormulaLabel"
-                        );
+                            "dogFormulaLabel");
 
-                    if (
-                        pet === "dog"
-                    ) {
+                    if (pet === "dog") {
 
-                        dogFormula.style.display =
-                            "block";
-
-                        dogLabel.style.display =
-                            "block";
+                        dog.style.display = "block";
+                        label.style.display = "block";
 
                     } else {
 
-                        dogFormula.style.display =
-                            "none";
-
-                        dogLabel.style.display =
-                            "none";
-
+                        dog.style.display = "none";
+                        label.style.display = "none";
                     }
 
-                }
-            );
+                });
 
 
-        function calculateAge() {
+        /* ===== 計算 ===== */
+
+        function calculateAge(event) {
+
+            createHearts(event);
 
             let petType =
                 document.getElementById(
@@ -300,29 +317,20 @@
                     ).value
                 );
 
-            let resultDiv =
+            let result =
                 document.getElementById(
                     "result"
                 );
 
-            if (
-                isNaN(age)
-            ) {
+            if (isNaN(age)) {
 
-                alert(
-                    "請輸入正確年齡"
-                );
-
+                alert("請輸入年齡");
                 return;
             }
 
             let humanAge;
 
-            /* ===== 貓 ===== */
-
-            if (
-                petType === "cat"
-            ) {
+            if (petType === "cat") {
 
                 if (age === 1)
                     humanAge = 15;
@@ -332,36 +340,30 @@
 
                 else if (age > 2)
                     humanAge =
-                        24 +
-                        (age - 2) *
-                        4;
+                        24 + (age - 2) * 4;
 
                 else
                     humanAge =
                         age * 15;
 
-                resultDiv.innerHTML =
-                    "🐱 貓咪約等於 <strong>" +
+                result.innerHTML =
+                    "🐱 約等於 <strong>" +
                     Math.round(
                         humanAge
                     ) +
-                    "</strong> 歲的人類年齡！";
+                    "</strong> 歲";
+
             }
 
-            /* ===== 狗 ===== */
 
-            if (
-                petType === "dog"
-            ) {
+            if (petType === "dog") {
 
                 let formula =
                     document.getElementById(
                         "dogFormula"
                     ).value;
 
-                if (
-                    formula === "normal"
-                ) {
+                if (formula === "normal") {
 
                     if (age === 1)
                         humanAge = 15;
@@ -371,44 +373,127 @@
 
                     else if (age > 2)
                         humanAge =
-                            24 +
-                            (age - 2) *
-                            5;
+                            24 + (age - 2) * 5;
 
                     else
                         humanAge =
                             age * 15;
 
-                    resultDiv.innerHTML =
-                        "🐶 狗狗約等於 <strong>" +
-                        Math.round(
-                            humanAge
-                        ) +
-                        "</strong> 歲的人類年齡！";
                 }
 
-                if (
-                    formula === "science"
-                ) {
+                if (formula === "science") {
 
                     humanAge =
-                        16 *
-                        Math.log(age) +
-                        31;
-
-                    resultDiv.innerHTML =
-                        "🧬 科學公式：約 <strong>" +
-                        Math.round(
-                            humanAge
-                        ) +
-                        "</strong> 歲的人類年齡！";
+                        16 * Math.log(age) + 31;
                 }
+
+                result.innerHTML =
+                    "🐶 約等於 <strong>" +
+                    Math.round(
+                        humanAge
+                    ) +
+                    "</strong> 歲";
 
             }
 
-            resultDiv.style.display =
+            result.style.display =
                 "block";
+
         }
+
+
+        /* ===== 按鈕愛心動畫 ===== */
+
+        function createHearts(event) {
+
+            for (let i = 0; i < 5; i++) {
+
+                let heart =
+                    document.createElement(
+                        "div");
+
+                heart.className =
+                    "heart";
+
+                heart.innerHTML = "❤️";
+
+                heart.style.left =
+                    event.clientX +
+                    (Math.random() * 40 - 20)
+                    + "px";
+
+                heart.style.top =
+                    event.clientY +
+                    "px";
+
+                document.body
+                    .appendChild(heart);
+
+                setTimeout(() => {
+
+                    heart.remove();
+
+                }, 1000);
+
+            }
+
+        }
+
+
+        /* ===== 點擊任意位置 → 肉球 ===== */
+
+        document
+            .addEventListener(
+                "click",
+                function (e) {
+
+                    let paw =
+                        document.createElement(
+                            "div");
+
+                    paw.className =
+                        "paw";
+
+                    paw.innerHTML = "🐾";
+
+                    paw.style.left =
+                        e.clientX + "px";
+
+                    paw.style.top =
+                        e.clientY + "px";
+
+                    document.body
+                        .appendChild(paw);
+
+                    setTimeout(() => {
+
+                        paw.remove();
+
+                    }, 1200);
+
+                });
+
+
+        /* ===== 背景視差 ===== */
+
+        document
+            .addEventListener(
+                "mousemove",
+                function (e) {
+
+                    let x =
+                        e.clientX /
+                        window.innerWidth;
+
+                    let y =
+                        e.clientY /
+                        window.innerHeight;
+
+                    document.body.style.backgroundPosition =
+                        (x * 50) + "% " +
+                        (y * 50) + "%";
+
+                });
 
     </script>
 
