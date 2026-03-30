@@ -2,14 +2,15 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>寵物工具箱｜年齡換算與體重紀錄</title>
-    <meta
-      name="description"
-      content="可愛互動式寵物工具箱，包含寵物年齡換算與體重紀錄功能，支援 localStorage 儲存資料與寵物名字標籤切換。"
-    />
-    <link rel="apple-touch-icon" sizes="180x180" href="logo.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="logo.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="logo.png" />
+    <meta name="description" content="可愛互動式寵物工具箱，包含寵物年齡換算與體重紀錄功能，支援 localStorage 儲存資料與寵物名字標籤切換。"/>
+    
+    <!--  放入這三行開始 -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="./logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./logo.png">
+    <!--  放入這三行結束 -->
 
     <style>
       * {
@@ -198,10 +199,17 @@ Navbar
 表格
 ========================= */
 
+ 
+      .table-wrapper {
+        overflow-x: auto;
+
+        margin-top: 25px;
+      }
+
       table {
         width: 100%;
 
-        margin-top: 25px;
+        min-width: 450px;
 
         border-collapse: collapse;
 
@@ -215,6 +223,55 @@ Navbar
         padding: 10px;
 
         text-align: center;
+      }
+
+      @media (max-width: 520px) {
+        .container {
+          padding: 20px;
+        }
+
+        input,
+        select,
+        button {
+          font-size: 16px;
+        }
+
+        button {
+          padding: 14px;
+        }
+
+        th,
+        td {
+          padding: 10px 8px;
+          font-size: 14px;
+        }
+
+        .nav-links {
+          width: 100%;
+          margin-top: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .nav-links a {
+          margin-left: 0;
+          flex: 1 1 calc(50% - 10px);
+          text-align: center;
+          padding: 10px 0;
+          background: rgba(255, 255, 255, 0.7);
+          border-radius: 12px;
+        }
+
+        .navbar {
+          justify-content: center;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .tabs {
+          gap: 6px;
+        }
       }
 
       th {
@@ -268,13 +325,11 @@ Navbar
   </head>
 
   <body>
-    <!-- =========================
-Navbar
-========================= -->
+    <!-- =========================Navbar========================= -->
 
     <div class="navbar">
       <div class="logo" onclick="showPage('agePage')">
-        <img src="logo.png" alt="寵物網站 Logo" /> 寵物工具箱
+        <img src="logo.png" alt="寵物網站 Logo" /> 喵工具箱
       </div>
 
       <div class="nav-links">
@@ -284,9 +339,7 @@ Navbar
       </div>
     </div>
 
-    <!-- =========================
-年齡計算頁面
-========================= -->
+    <!-- =========================年齡計算頁面========================= -->
 
     <div id="agePage" class="container page active">
       <h1>🐾 寵物年齡換算器</h1>
@@ -311,26 +364,26 @@ Navbar
 
       <div id="result" class="result"></div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>種類</th>
-            <th>名字</th>
-            <th>年齡</th>
-            <th>人類年齡</th>
-            <th>時間</th>
-          </tr>
-        </thead>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>種類</th>
+              <th>名字</th>
+              <th>年齡</th>
+              <th>人類年齡</th>
+              <th>時間</th>
+            </tr>
+          </thead>
 
-        <tbody id="historyTable"></tbody>
-      </table>
+          <tbody id="historyTable"></tbody>
+        </table>
+      </div>
 
       <button onclick="clearHistory()">清除全部紀錄</button>
     </div>
 
-    <!-- =========================
-體重紀錄頁面
-========================= -->
+    <!-- =========================體重紀錄頁面========================= -->
 
     <div id="weightPage" class="container page">
       <h1>🐶 寵物體重紀錄器</h1>
@@ -349,23 +402,23 @@ Navbar
 
       <div class="tabs" id="tabs"></div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>日期</th>
-            <th>體重</th>
-            <th>與上次差異</th>
-          </tr>
-        </thead>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>體重</th>
+              <th>與上次差異</th>
+            </tr>
+          </thead>
 
-        <tbody id="weightTable"></tbody>
-      </table>
+          <tbody id="weightTable"></tbody>
+        </table>
+      </div>
     </div>
 
     <script>
-      /* =========================
-              頁面切換
-              ========================= */
+      /* =========================              頁面切換              ========================= */
 
       function showPage(pageId) {
         document.querySelectorAll(".page").forEach((p) => {
@@ -375,9 +428,7 @@ Navbar
         document.getElementById(pageId).classList.add("active");
       }
 
-      /* =========================
-              年齡換算
-              ========================= */
+      /* =========================              年齡換算              ========================= */
 
       const STORAGE_KEY = "petAgeHistory";
 
@@ -432,9 +483,7 @@ Navbar
         renderHistory();
       }
 
-      /* =========================
-              儲存年齡
-              ========================= */
+      /* =========================              儲存年齡              ========================= */
 
       function saveHistory(
         type,
@@ -514,9 +563,7 @@ Navbar
         renderHistory();
       }
 
-      /* =========================
-              體重紀錄
-              ========================= */
+      /* =========================              體重紀錄              ========================= */
 
       const WEIGHT_KEY = "petWeightHistory";
 
@@ -568,9 +615,7 @@ Navbar
         renderWeightTable();
       }
 
-      /* =========================
-              建立 Tabs
-              ========================= */
+      /* =========================              建立 Tabs              ========================= */
 
       function renderTabs() {
         let history = JSON.parse(localStorage.getItem(WEIGHT_KEY)) || {};
@@ -613,9 +658,7 @@ Navbar
         });
       }
 
-      /* =========================
-              表格
-              ========================= */
+      /* =========================              表格              ========================= */
 
       function renderWeightTable() {
         let history = JSON.parse(localStorage.getItem(WEIGHT_KEY)) || {};
